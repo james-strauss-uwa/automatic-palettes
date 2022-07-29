@@ -1,6 +1,11 @@
 name: Generate component palette for ska-sdp-func
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
 
