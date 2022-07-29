@@ -37,6 +37,7 @@ jobs:
           git clone --depth 1 $GIT_REPO
           cd $PROJECT_NAME
           echo "PROJECT_VERSION=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+          echo "PROJECT_BRANCH=$(git branch --show-current)" >> $GITHUB_ENV
           cd ..
 
       - name: Create palettes
@@ -54,5 +55,5 @@ jobs:
           git config --global user.name $GITHUB_USERNAME
           git config --global user.email $GITHUB_USERNAME@gmail.com
           git add *
-          git diff-index --quiet HEAD || git commit -m "Automatically generated $PROJECT_NAME palette (branch master, commit $PROJECT_VERSION)"
+          git diff-index --quiet HEAD || git commit -m "Automatically generated $PROJECT_NAME palette (branch $PROJECT_BRANCH, commit $PROJECT_VERSION)"
           git push
