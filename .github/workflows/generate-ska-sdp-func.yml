@@ -49,5 +49,5 @@ jobs:
           git config --global user.name $GITHUB_USERNAME
           git config --global user.email $GITHUB_USERNAME@gmail.com
           git add *
-          git diff-index --quiet HEAD || git commit -m "Automatically generated DALiuGE palette (branch $GITHUB_REF_NAME, commit $PROJECT_VERSION)"
+          git diff-index --quiet HEAD || git commit -m "Automatically generated $PROJECT_NAME palette (branch master, commit $PROJECT_VERSION)"
           git push
