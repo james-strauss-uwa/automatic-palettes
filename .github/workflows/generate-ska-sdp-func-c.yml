@@ -1,0 +1,61 @@
+name: Generate component palette for ska-sdp-func.c
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+
+  run_tests:
+    name: Generate component palette for ska-sdp-func.c
+    runs-on: ubuntu-20.04
+    env:
+      PROJECT_NAME: ska-sdp-func.c
+      GIT_REPO: https://gitlab.com/ska-telescope/sdp/ska-sdp-func.git
+      GIT_DIRECTORY: ska-sdp-func
+      GITHUB_USERNAME: eagle.updater
+      PALETTE_DIRECTORY: ska-sdp-func
+      PALETTE_FILENAME: ska-sdp-func.c.palette
+
+    steps:
+      - uses: actions/setup-python@v2
+        name: Install Python
+        with:
+          python-version: '3.9'
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y doxygen xsltproc
+
+      - name: Fetch xml2palette from DALiuGE repo
+        run: |
+          wget https://raw.githubusercontent.com/ICRAR/daliuge/master/tools/xml2palette/xml2palette.py
+
+      - name: Clone repository
+        run: |
+          git clone --depth 1 $GIT_REPO
+          cd $GIT_DIRECTORY
+          echo "PROJECT_VERSION=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+          echo "PROJECT_BRANCH=$(git branch --show-current)" >> $GITHUB_ENV
+          cd ..
+
+      - name: Create palettes
+        run: |
+          python3 xml2palette.py -i $GIT_DIRECTORY -o $PALETTE_FILENAME -s -c
+
+      - name: Commit palettes to EAGLE
+        env:
+          EAGLE_UPDATER_TOKEN: ${{ secrets.EAGLE_UPDATER_TOKEN }}
+        run: |
+          git clone https://$EAGLE_UPDATER_TOKEN@github.com/ICRAR/EAGLE_test_repo
+          mkdir -p EAGLE_test_repo/$PALETTE_DIRECTORY
+          mv $PALETTE_FILENAME EAGLE_test_repo/$PALETTE_DIRECTORY/
+          cd EAGLE_test_repo
+          git config --global user.name $GITHUB_USERNAME
+          git config --global user.email $GITHUB_USERNAME@gmail.com
+          git add *
+          git diff-index --quiet HEAD || git commit -m "Automatically generated $PROJECT_NAME palette (branch $PROJECT_BRANCH, commit $PROJECT_VERSION)"
+          git push
