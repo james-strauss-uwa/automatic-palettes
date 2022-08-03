@@ -1,4 +1,4 @@
-name: Generate component palette for ska-sdp-func.python
+name: Generate component palette for rascil.processing_components
 
 on:
   push:
@@ -10,15 +10,15 @@ on:
 jobs:
 
   run_tests:
-    name: Generate component palette for ska-sdp-func.python
+    name: Generate component palette for rascil.processing_components
     runs-on: ubuntu-20.04
     env:
-      PROJECT_NAME: ska-sdp-func.python
-      GIT_REPO: https://gitlab.com/ska-telescope/sdp/ska-sdp-func.git
-      GIT_DIRECTORY: ska-sdp-func
+      PROJECT_NAME: rascil.processing_components
+      GIT_REPO: https://gitlab.com/ska-telescope/external/rascil.git
+      GIT_DIRECTORY: rascil
       GITHUB_USERNAME: eagle.updater
-      PALETTE_DIRECTORY: ska-sdp-func
-      PALETTE_FILENAME: ska-sdp-func.python.palette
+      PALETTE_DIRECTORY: rascil
+      PALETTE_FILENAME: rascil.processing_components.palette
 
     steps:
       - uses: actions/setup-python@v2
@@ -44,7 +44,7 @@ jobs:
 
       - name: Create palettes
         run: |
-          python3 xml2palette.py -i $GIT_DIRECTORY -o $PALETTE_FILENAME -s -p
+          python3 xml2palette.py -i $GIT_DIRECTORY -o $PALETTE_FILENAME -s -p -m rascil.processing_components
 
       - name: Commit palettes to EAGLE
         env:
