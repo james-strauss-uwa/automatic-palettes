@@ -42,11 +42,11 @@ jobs:
           echo "PROJECT_BRANCH=$(git branch --show-current)" >> $GITHUB_ENV
           cd ..
 
-      - name: Create palettes
+      - name: Create palette
         run: |
           python3 xml2palette.py -i $GIT_DIRECTORY -o $PALETTE_FILENAME -s -p
 
-      - name: Commit palettes to EAGLE
+      - name: Commit palette to EAGLE_test_repo
         env:
           EAGLE_UPDATER_TOKEN: ${{ secrets.EAGLE_UPDATER_TOKEN }}
         run: |
