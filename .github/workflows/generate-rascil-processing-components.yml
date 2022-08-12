@@ -64,10 +64,10 @@ jobs:
         env:
           GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
         run: |
-          git clone https://james-strauss-uwa:GITLAB_TOKEN@gitlab.com/ska-telescope/ska-sdp-daliuge-graphs.git
-          mkdir -p ska-sdp-daliuge-graphs/palettes/$PALETTE_DIRECTORY
-          mv $PALETTE_FILENAME ska-sdp-daliuge-graphs/palettes/$PALETTE_DIRECTORY/
-          cd ska-sdp-daliuge-graphs
+          git clone https://james-strauss-uwa:GITLAB_TOKEN@gitlab.com/ska-telescope/ska-sdp-daliuge-graphs.git "$GITHUB_SHA"
+          mkdir -p $GITHUB_SHA/palettes/$PALETTE_DIRECTORY
+          mv $PALETTE_FILENAME $GITHUB_SHA/palettes/$PALETTE_DIRECTORY/
+          cd $GITHUB_SHA
           git config --global user.name james-strauss-uwa
           git config --global user.email james.strauss@uwa.edu.au
           git add *
