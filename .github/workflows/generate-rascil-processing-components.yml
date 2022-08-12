@@ -64,7 +64,7 @@ jobs:
         env:
           GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
         run: |
-          git clone https://james-strauss-uwa:GITLAB_TOKEN@gitlab.com/ska-telescope/ska-sdp-daliuge-graphs.git
+          git clone https://oauth2:GITLAB_TOKEN@gitlab.com/ska-telescope/ska-sdp-daliuge-graphs.git
           mkdir -p ska-sdp-daliuge-graphs/palettes/$PALETTE_DIRECTORY
           mv $PALETTE_FILENAME ska-sdp-daliuge-graphs/palettes/$PALETTE_DIRECTORY/
           cd ska-sdp-daliuge-graphs
