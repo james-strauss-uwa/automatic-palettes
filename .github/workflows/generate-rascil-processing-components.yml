@@ -70,7 +70,7 @@ jobs:
           cd ska-sdp-daliuge-graphs
           git config --global user.name james-strauss-uwa
           git config --global user.email james.strauss@uwa.edu.au
-          git config --system --unset credential.helper
+          git config --global http.emptyAuth true
           git add *
           git diff-index --quiet HEAD || git commit -m "Automatically generated $PROJECT_NAME palette (branch $PROJECT_BRANCH, commit $PROJECT_VERSION)"
           git push
