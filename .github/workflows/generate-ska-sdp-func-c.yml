@@ -44,7 +44,7 @@ jobs:
 
       - name: Create palette
         run: |
-          python3 xml2palette.py -i $GIT_DIRECTORY -o $PALETTE_FILENAME -s -c
+          python3 xml2palette.py -c -s -r $GIT_DIRECTORY $PALETTE_FILENAME
 
       - name: Commit palette to EAGLE_test_repo
         env:
