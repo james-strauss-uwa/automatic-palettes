@@ -44,32 +44,32 @@ jobs:
 
       - name: Create palette
         run: |
-          python3 xml2palette.py -i $GIT_DIRECTORY -o $PALETTE_FILENAME -s -p -m rascil.processing_components
+          python3 xml2palette.py -s -r -m rascil.processing_components $GIT_DIRECTORY $PALETTE_FILENAME
 
-#      - name: Commit palette to EAGLE_test_repo
-#        env:
-#          EAGLE_UPDATER_TOKEN: ${{ secrets.EAGLE_UPDATER_TOKEN }}
-#        run: |
-#          git clone https://$EAGLE_UPDATER_TOKEN@github.com/ICRAR/EAGLE_test_repo
-#          mkdir -p EAGLE_test_repo/$PALETTE_DIRECTORY
-#          mv $PALETTE_FILENAME EAGLE_test_repo/$PALETTE_DIRECTORY/
-#          cd EAGLE_test_repo
-#          git config --global user.name $GITHUB_USERNAME
-#          git config --global user.email $GITHUB_USERNAME@gmail.com
-#          git add *
-#          git diff-index --quiet HEAD || git commit -m "Automatically generated $PROJECT_NAME palette (branch $PROJECT_BRANCH, commit $PROJECT_VERSION)"
-#          git push
-
-      - name: Commit palette to ska-sdp-daliuge-graphs
+      - name: Commit palette to EAGLE_test_repo
         env:
-          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+          EAGLE_UPDATER_TOKEN: ${{ secrets.EAGLE_UPDATER_TOKEN }}
         run: |
-          git clone https://james-strauss-uwa:GITLAB_TOKEN@gitlab.com/ska-telescope/ska-sdp-daliuge-graphs.git "$GITHUB_SHA"
-          mkdir -p $GITHUB_SHA/palettes/$PALETTE_DIRECTORY
-          mv $PALETTE_FILENAME $GITHUB_SHA/palettes/$PALETTE_DIRECTORY/
-          cd $GITHUB_SHA
-          git config --global user.name james-strauss-uwa
-          git config --global user.email james.strauss@uwa.edu.au
+          git clone https://$EAGLE_UPDATER_TOKEN@github.com/ICRAR/EAGLE_test_repo
+          mkdir -p EAGLE_test_repo/$PALETTE_DIRECTORY
+          mv $PALETTE_FILENAME EAGLE_test_repo/$PALETTE_DIRECTORY/
+          cd EAGLE_test_repo
+          git config --global user.name $GITHUB_USERNAME
+          git config --global user.email $GITHUB_USERNAME@gmail.com
           git add *
           git diff-index --quiet HEAD || git commit -m "Automatically generated $PROJECT_NAME palette (branch $PROJECT_BRANCH, commit $PROJECT_VERSION)"
           git push
+
+#      - name: Commit palette to ska-sdp-daliuge-graphs
+#        env:
+#          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+#        run: |
+#          git clone https://james-strauss-uwa:GITLAB_TOKEN@gitlab.com/ska-telescope/ska-sdp-daliuge-graphs.git "$GITHUB_SHA"
+#          mkdir -p $GITHUB_SHA/palettes/$PALETTE_DIRECTORY
+#          mv $PALETTE_FILENAME $GITHUB_SHA/palettes/$PALETTE_DIRECTORY/
+#          cd $GITHUB_SHA
+#          git config --global user.name james-strauss-uwa
+#          git config --global user.email james.strauss@uwa.edu.au
+#          git add *
+#          git diff-index --quiet HEAD || git commit -m "Automatically generated $PROJECT_NAME palette (branch $PROJECT_BRANCH, commit $PROJECT_VERSION)"
+#          git push
