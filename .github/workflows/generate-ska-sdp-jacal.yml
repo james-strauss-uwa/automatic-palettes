@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       PROJECT_NAME: ska-sdp-jacal
-      GIT_REPO: https://gitlab.com/ska-telescope/ska-sdp-func.git
+      GIT_REPO: https://gitlab.com/ska-telescope/ska-sdp-jacal.git
       GIT_DIRECTORY: ska-sdp-jacal
       GITHUB_USERNAME: eagle.updater
       PALETTE_DIRECTORY: ska-sdp-jacal
